@@ -142,7 +142,7 @@ Smart detection: Shortcuts are disabled when typing in input fields, textareas, 
 
 1. Install a userscript manager for your browser
 2. Click the install link below: \
-[https://github.com/Onyx-i7/GitHub-Enhanced/raw/main/github-enhanced.user.js](https://github.com/Onyx-i7/GitHub-Enhanced/raw/main/github-enhanced.user.js)
+[Click here](https://github.com/Onyx-i7/GitHub-Enhanced/raw/refs/heads/main/github-enhanced.user.js)
 
 3. Your userscript manager will prompt you to install the script
 4. Click "Install" to confirm
