@@ -1,10 +1,8 @@
 // ==UserScript==
 // @name         GitHub Enhanced
-// @name:zh-CN   GitHub 增强
 // @namespace    http://tampermonkey.net/
-// @version      0.2.0
+// @version      0.2.1
 // @description  Enhance GitHub with advanced UI tweaks, PR tools, quick actions, and performance boosts.
-// @description:zh-CN 为 GitHub 增加高级 UI 调整、PR 工具、快速操作和性能提升。
 // @author       Onyx-i7
 // @match        https://github.com/*
 // @match        https://*.github.com/*
@@ -23,10 +21,10 @@
 // @connect      github.com
 // @connect      api.github.com
 // @connect      raw.githubusercontent.com
-// @require      https://github.com/PRO-2684/GM_config/releases/download/v1.2.2/config.min.js#md5=c45f9b0d19ba69bb2d44918746c4d7ae
-// @resource     catppuccin-associations https://raw.githubusercontent.com/PRO-2684/gadgets/refs/heads/main/github_plus/associations.json
-// @resource     catppuccin-icons https://raw.githubusercontent.com/PRO-2684/gadgets/refs/heads/main/github_plus/icons.json
-// @resource     catppuccin-palette https://raw.githubusercontent.com/PRO-2684/gadgets/refs/heads/main/github_plus/palette.json
+// @require      https://github.com/Onyx-i7/GitHub-Enhanced/releases/download/deps-1.0.0/config.min.js
+// @resource     catppuccin-associations https://github.com/Onyx-i7/GitHub-Enhanced/raw/refs/heads/main/dependencies/associations.json
+// @resource     catppuccin-icons https://github.com/Onyx-i7/GitHub-Enhanced/raw/refs/heads/main/dependencies/icons.json
+// @resource     catppuccin-palette https://github.com/Onyx-i7/GitHub-Enhanced/raw/refs/heads/main/dependencies/palette.json
 // @downloadURL  https://github.com/Onyx-i7/GitHub-Enhanced/blob/main/github-enhanced.user.js
 // @updateURL    https://github.com/Onyx-i7/GitHub-Enhanced/blob/main/github-enhanced.user.js
 // ==/UserScript==
@@ -195,26 +193,68 @@
     // CSS & APPEARANCE FEATURES
     // ==========================================
     const dynamicStyles = {
-        "code.cursorBlink": "[data-testid='navigation-cursor'] { animation: blink 1s step-end infinite; }",
-        "code.cursorAnimation": "[data-testid='navigation-cursor'] { transition: top 0.1s ease-in-out, left 0.1s ease-in-out; }",
+        "code.cursorBlink":
+            "[data-testid='navigation-cursor'] { animation: blink 1s step-end infinite; }",
+        "code.cursorAnimation":
+            "[data-testid='navigation-cursor'] { transition: top 0.1s ease-in-out, left 0.1s ease-in-out; }",
         "code.fullWidth": "#copilot-button-positioner { padding-right: 0; }",
-        "code.hideReadonlyTip": "[class^='CodeBlob-module__cursorContainer__'] .position-absolute.color-bg-subtle { display: none; }",
+        "code.hideReadonlyTip":
+            "[class^='CodeBlob-module__cursorContainer__'] .position-absolute.color-bg-subtle { display: none; }",
         "appearance.stickyAvatar": `
-            .pull-discussion-timeline .TimelineItem-avatar { position: relative; margin-left: -40px; left: -32px;
-                & > a[data-hovercard-type='user'], & > a[href^="/apps/"], & > img.avatar { position: sticky; top: 5em; }
+            .pull-discussion-timeline .TimelineItem-avatar {
+                position: relative;
+                margin-left: -40px;
+                left: -32px;
+                & > a[data-hovercard-type='user'], & > a[href^="/apps/"], & > img.avatar {
+                    position: sticky;
+                    top: 5em;
+                }
             }
-            #issue-timeline [class*='Avatar-module__avatarOuter__'] { position: sticky; top: 3em; }
-            [data-testid='issue-viewer-issue-container'] [class*='Avatar-module__avatarOuter__'] { position: sticky; top: 4em; }`,
+            #issue-timeline [class*='Avatar-module__avatarOuter__'] {
+                position: sticky;
+                top: 3em;
+            }
+            [data-testid='issue-viewer-issue-container'] [class*='Avatar-module__avatarOuter__'] {
+                position: sticky;
+                top: 4em;
+            }
+            /* .page-responsive .timeline-comment--caret {
+                &::before, &::after {
+                    position: sticky;
+                    top: 4em;
+                    margin-top: -1em;
+                    transform: translate(-0.5em, 2em);
+                }
+            } */
+        `,
         "appearance.stickyMore": `
             .react-issue-body [class^='IssueBodyHeader-module__IssueBodyHeaderContainer__'],
-            .react-issue-comment [data-testid="comment-header"] { position: sticky; top: 4em; z-index: 1; backdrop-filter: brightness(0.1); }
-            .timeline-comment-group .timeline-comment-header { position: sticky; top: 5em; z-index: 1; backdrop-filter: brightness(0.1); }`,
+            .react-issue-comment [data-testid="comment-header"]
+            { position: sticky; top: 4em; z-index: 1; backdrop-filter: brightness(0.1); }
+            .timeline-comment-group .timeline-comment-header
+            { position: sticky; top: 5em; z-index: 1; backdrop-filter: brightness(0.1); }`,
+            .timeline-comment-group .timeline-comment-header
+            { position: sticky; top: 5em; z-index: 1; backdrop-filter: brightness(0.1); }`,
         "appearance.hideHeaderUnderline": `.markdown-heading > .heading-element { border-bottom: none; }`,
         "appearance.visibleDetails": `
-            .markdown-body details { padding: 0 1em; border: 1px solid var(--borderColor-default,var(--color-border-default)); border-radius: 0.5em;
-                > summary { padding: 0.5em 1em; margin: 0 -1em; }
-                &:open > summary { margin: 0 -1em 1em -1em; border-bottom: 1px dashed var(--borderColor-default,var(--color-border-default)); }
-            }`,
+            .markdown-body details {
+                padding: 0 1em; /* Indent content */
+                border: 1px solid var(--borderColor-default,var(--color-border-default));
+                border-radius: 0.5em;
+
+                > summary {
+                    padding: 0.5em 1em; /* Enlarge clickable area */
+                    margin: 0 -1em; /* Align summary with content edges */
+                }
+
+                &:open {
+                    > summary {
+                        margin: 0 -1em 1em -1em; /* Gap between summary and content */
+                        border-bottom: 1px dashed var(--borderColor-default,var(--color-border-default)); /* Nice little separator */
+                    }
+                }
+            }
+        `,
     };
     for (const prop in dynamicStyles) cssHelper(prop, config.get(prop));
 
