@@ -232,7 +232,7 @@
             .react-issue-comment [data-testid="comment-header"]
             { position: sticky; top: 4em; z-index: 1; backdrop-filter: brightness(0.1); }
             .timeline-comment-group .timeline-comment-header
-            { position: sticky; top: 5em; z-index: 1; backdrop-filter: brightness(0.1); }`,
+            { position: sticky; top: 4em; z-index: 1; backdrop-filter: brightness(0.1); }
             .timeline-comment-group .timeline-comment-header
             { position: sticky; top: 5em; z-index: 1; backdrop-filter: brightness(0.1); }`,
         "appearance.hideHeaderUnderline": `.markdown-heading > .heading-element { border-bottom: none; }`,
